@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Toggle</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: black;
+            margin: 0;
+            padding: 20px;
+            transition: 0.3s ease;
+        }
+
+        /* Dark Theme Class */
+        .dark-theme {
+            background-color: #121212;
+            color: white;
+        }
+
+        /* Toggle Button Styling */
+        #themeToggle {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        #themeToggle:hover {
+            background-color: #0056b3;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Theme Toggle</h1>
+    <p>This page allows switching between light and dark themes.</p>
+
+    <button id="themeToggle">Toggle Theme</button>
+
+    <!-- JS to Toggle Dark Mode -->
+    <script>
+        document.getElementById("themeToggle").onclick = function () {
+            document.body.classList.toggle("dark-theme");
+        }
+    </script>
+
+</body>
+</html>
