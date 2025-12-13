@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: rgb(6, 36, 50);
+            color: #e1d2d2;
+        }
+        h1 {
+            color:rgb(240, 231, 231);
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 20%;
+        }
+        td, th {
+            border: 2px solid #645b5b;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+        }
+        .choice {
+            display: inline-block;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+            border: 2px solid #645b5b;
+            border-radius: 50%;
+            background-color: rgb(6, 36, 50);
+            transition: 0.3s;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .choice:hover {
+            background-color:  #403e3e;
+        }
+        .reset-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+           background-color: rgb(6, 36, 50);
+           color: #e1d2d2;
+            border: 2px solid #645b5b;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .reset-btn:hover {
+            background-color:  #403e3e;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Rock Paper Scissors</h1>
+
+    
+    <table>
+       
+        <tr>
+            <td><div class="choice" onclick="playGame('rock')">✊</div></td>
+            <td><div class="choice" onclick="playGame('paper')">🖐</div></td>
+            <td><div class="choice" onclick="playGame('scissors')">✌</div></td>
+        </tr>
+    </table>
+    <p id="result">-</p>
+   
+    <table>
+        <tr>
+            <th>You</th>
+            <th>Computer</th>
+        </tr>
+        <tr>
+            <td id="user-choice">-</td>
+            <td id="computer-choice">-</td>
+        </tr>
+    </table>
+
+    
+
+   
+    <table>
+        <tr>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Ties</th>
+        </tr>
+        <tr>
+            <td id="wins">0</td>
+            <td id="losses">0</td>
+            <td id="ties">0</td>
+        </tr>
+    </table>
+
+    <button class="reset-btn" onclick="resetGame()">Reset</button>
+
+    <script>
+        let wins = 0, losses = 0, ties = 0;
+
+        function playGame(userChoice) {
+            const choices = ["rock", "paper", "scissors"];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+            document.getElementById("user-choice").textContent = getEmoji(userChoice);
+            document.getElementById("computer-choice").textContent = getEmoji(computerChoice);
+
+            let result = "";
+            if (userChoice === computerChoice) {
+                result = "It's a Draw!";
+                ties++;
+            } else if (
+                (userChoice === "rock" && computerChoice === "scissors") ||
+                (userChoice === "paper" && computerChoice === "rock") ||
+                (userChoice === "scissors" && computerChoice === "paper")
+            ) {
+                result = "You Win! 🎉";
+                wins++;
+            } else {
+                result = "Computer Wins! 💻";
+                losses++;
+            }
+
+            document.getElementById("result").textContent = result;
+            document.getElementById("wins").textContent = wins;
+            document.getElementById("losses").textContent = losses;
+            document.getElementById("ties").textContent = ties;
+        }
+
+        function resetGame() {
+            wins = 0;
+            losses = 0;
+            ties = 0;
+            document.getElementById("user-choice").textContent = "-";
+            document.getElementById("computer-choice").textContent = "-";
+            document.getElementById("result").textContent = "Make your move!";
+            document.getElementById("wins").textContent = wins;
+            document.getElementById("losses").textContent = losses;
+            document.getElementById("ties").textContent = ties;
+        }
+
+        function getEmoji(choice) {
+            if (choice === "rock") return "✊";
+            if (choice === "paper") return "🖐";
+            return "✌";
+        }
+    </script>
+
+</body>
+</html>
