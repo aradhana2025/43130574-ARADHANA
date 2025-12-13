@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Montserrat Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <title>Food Delivery App</title>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+            font-family: "Montserrat", sans-serif;
+            background-color: beige;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .navbar {
+            background-color: beige;
+            width: 100%;
+            height: 50px;
+            position: fixed;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            border: 1px solid #121212;
+        }
+        .nav-brand {
+            height: 80%;
+            padding: 0px 10px;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+        }
+        .nav-info {
+            height: 80%;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .nav-info > a {
+            padding: 5px 10px;
+            margin: 3px;
+            text-decoration: none;
+            color: #121212;
+        }
+        .nav-signup {
+            height: 80%;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .nav-signup > img , .nav-signup > button {
+            margin: 10px;
+        }
+        .btn-signup {
+            background-color: #12121200;
+            padding: 8px 15px;
+            border: 1px solid #121212;
+            border-radius: 10px;
+            font-family: "Montserrat", sans-serif;
+        }
+        .poster {
+            width: 80%;
+            height: 300px;
+            margin: 40px 0px;
+            border-radius: 0px;
+        }
+        .poster-info {
+            width: 100%;
+            height: 300px;
+            border-radius: 20px;
+
+            background-color: seagreen;
+            margin-top: -304px;
+            color: #ffffff;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .poster-info > h2 , .poster-info > p {
+            width: 50%;
+            text-align: center;
+        }
+        .expore {
+            width: 80%;
+            /* background-color: salmon; */
+            margin-bottom: 100px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+
+            border-bottom: 1.5px solid #121212;
+        }
+        .expore-items {
+            width: 100%;   
+            height: 190px;    
+            display: flex;     
+            flex-direction: row;    
+            align-items: center;   
+            overflow-y:hidden;          
+            padding: 10px 0;    
+        }
+
+        .food-item {
+            width: 200px;
+            height: 100%;
+            margin-right: 20px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .food-item img {
+            width: 80px;  
+            height: 80px; 
+            border-radius: 50%;
+            object-fit: fill; 
+        }
+
+        .dishes-container {
+            width: 80%;
+            margin-top: -80px;
+        }
+
+        .dishes {
+            width: 100%;
+            padding: 10px;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .dish {
+            width: 300px;
+            height: 350px;
+            border: 1px solid #121212;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+        .dish-image {
+            height: 50%;
+        }
+        .dish-container {
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .dish-info {
+            width: 95%;
+        }
+        .dish-desc {
+            margin-top: -10px;
+            font-size: .9rem;
+        }
+
+        footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+.footer-info, .footer-social {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-social a {
+    color: white;
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+.footer-social a:hover {
+    color: #f39c12;
+}
+
+
+        @media only screen and (max-width: 600px) {
+            .nav-info, .poster-info > p{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-brand">
+            <p>FOODIE</p>
+        </div>
+        <div class="nav-info">
+            <a href="#Home">Home</a>
+            <a href="#top-dishes">Menu</a>
+            <a href="#Contact">Contact us</a>
+        </div>
+        <div class="nav-signup">
+           <h2>👜</h2>
+            <a href="sign up.html">
+                <button class="btn-signup">Sign up</button>
+              </a>
+        </div>
+    </div>
+    <div class="poster">
+        <img src="Assets/background.jpg" style="object-fit: cover; width: 100%; height: 100%; border-radius: 20px;"/>
+        <div class="poster-info">
+            <h2>Order your favorite food here</h2>
+            <p>Choose from a diverse menu featuring a delectable array of dishes crafted with the finest ingredients and culinary expertise.</p>
+            <button class="btn-signup" style="background-color: #ffffff;">View Menu</button>
+        </div>
+    </div>
+    <div class="expore" id="Home">
+        <h2>Explore our menu</h2>
+        <p>Choose from a diverse menu featuring a delectable array of dishes. Our mission is to satisfy your cravings and elevate your dining experience, one delicious meal at a time.</p>
+        <div class="expore-items"></div>
+    </div>
+    <div class="dishes-container" id="top-dishes">
+        <h2>Top dishes near you</h2>
+        <div class="dishes">
+            <div class="dish">
+                <img src="Assets/sand.jpeg" class="dish-image" style="object-fit: cover; width: 100%; height: 60%; border-top-left-radius: 10px; border-top-right-radius: 10px;"/>
+                <div class="dish-container">
+                    <div class="dish-info" >
+                        <h4>Chicken Sandwich</h4>
+                        <p>Where Every Bite is a Flavorful Journey.</p>
+                        <p>₹120</p>
+                    </div>
+                </div>
+            </div>
+            <div class="dish">
+                <img src="Assets/burger.jpeg" class="dish-image" style="object-fit: cover; width: 100%; height: 60%; border-top-left-radius: 10px; border-top-right-radius: 10px;"/>
+                <div class="dish-container">
+                    <div class="dish-info" >
+                        <h4>Chicken burger</h4>
+                        <p>Where Every Bite is a Flavorful Journey.</p>
+                        <p>₹150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="dish">
+                <img src="Assets/dessert1.jpeg" class="dish-image" style="object-fit: cover; width: 100%; height: 60%; border-top-left-radius: 10px; border-top-right-radius: 10px;"/>
+                <div class="dish-container">
+                    <div class="dish-info" >
+                        <h4>Oreo milkshake</h4>
+                        <p>Food provides essential nutrients for overall health and well-being</p>
+                        <p>₹100</p>
+                    </div>
+                </div>
+            </div>
+            <div class="dish">
+                <img src="Assets/pizza.png" class="dish-image" style="object-fit: cover; width: 100%; height: 60%; border-top-left-radius: 10px; border-top-right-radius: 10px;"/>
+                <div class="dish-container">
+                    <div class="dish-info" >
+                        <h4>Full loaded cheesy pizza</h4>
+                        <p>Food provides essential nutrients for overall health and well-being</p>
+                        <p>₹130</p>
+                    </div>
+                </div>
+            </div>
+            <div class="dish">
+                <img src="Assets/cheese.jpeg" class="dish-image" style="object-fit: cover; width: 100%; height: 60%; border-top-left-radius: 10px; border-top-right-radius: 10px;"/>
+                <div class="dish-container">
+                    <div class="dish-info" >
+                        <h4>Cheesecake</h4>
+                        <p>Food provides essential nutrients for overall health and well-being</p>
+                        <p>₹100</p>
+                    </div>
+                </div>
+            </div>
+        </div>    <footer>
+        <div class="footer-container" id="Contact">
+            <div class="footer-info">
+                <h3>Contact Us</h3>
+                <p>Email: support@foodapp.com</p>
+                <p>Phone: +123 456 7890</p>
+                <p>Address: Sathyabama institute of Science and Technology, Chennai, India</p>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <script>
+         const imageSrc = ["Assets/roll.jpeg", "Assets/dessert.jpeg", "Assets/cake.jpeg", "Assets/salad.jpeg", "Assets/sand.jpeg", "Assets/veg.jpeg"]
+         const name = ["Rolls", "Dessert", "cake", "salad", "Sandwich", "pureveg"]
+        let htmlData = ""
+        for(let i = 0; i < imageSrc.length; i++){
+            htmlData += 
+            `<div class="food-item" id="food-item-${i}" onclick="update(this)">
+                <img src="${imageSrc[i]}"/>
+                <p>${name[i]}</p>
+            </div>
+            ` 
+        }
+        document.getElementsByClassName("expore-items")[0].innerHTML = htmlData
+    
+        function updateRolls() {
+            const rolls = [
+                { imgSrc: 'Assets/roll1.jpeg', name: 'Egg roll', desc: 'Healthy and nutritious', price: 120 },
+                { imgSrc: 'Assets/roll2.jpeg', name: 'Paneer roll', desc: 'Fresh and organic', price: 180 },
+                { imgSrc: 'Assets/roll3.jpeg', name: 'Veggie roll', desc: 'Crunchy and delicious', price: 160 },
+                { imgSrc: 'Assets/roll4.jpeg', name: 'Chicken roll', desc: 'Protein-packed', price: 240 }
+            ];
+            updateDishes(rolls);
+        }
+
+    
+        function updateDessert() {
+            const dessert = [
+               
+                { imgSrc: 'Assets/dessert1.jpeg', name: 'strawberry pudding', desc: 'Spicy and cheesy', price: 150 },
+                { imgSrc: 'Assets/dessert2.jpeg', name: 'Tiramisu', desc: 'Crispy and fresh', price: 130 },
+                { imgSrc: 'Assets/dessert3.jpeg', name: 'Sizzling brownie', desc: 'Juicy and flavorful', price: 180 },
+                { imgSrc: 'Assets/dessert4.jpeg', name: 'Hot chocolate', desc: 'Rich in taste', price: 220 }
+            ];
+            updateDishes(dessert);
+        }
+
+        function updatecake() {
+            const cake = [
+                { imgSrc: 'Assets/cake1.jpeg', name: 'cake', desc: 'Spicy and cheesy', price: 150 },
+                { imgSrc: 'Assets/cake2.jpeg', name: 'Mojito', desc: 'Crispy and fresh', price: 130 },
+                { imgSrc: 'Assets/cake3.jpeg', name: 'Milkshakes', desc: 'Juicy and flavorful', price: 180 },
+                { imgSrc: 'Assets/cake4.jpeg', name: 'coffee', desc: 'Rich in taste', price: 220 }
+            ];
+            updateDishes(cake);
+        }
+
+        function updatesalad() {
+            const salad = [
+                { imgSrc: 'Assets/salad 1.jpeg', name: 'Chicken cheesy pizza', desc: 'Spicy and cheesy', price: 150 },
+                { imgSrc: 'Assets/salad2.jpeg', name: 'Volcano pizza', desc: 'Crispy and fresh', price: 130 },
+                { imgSrc: 'Assets/salad3.jpeg', name: 'Paneer pizza', desc: 'Juicy and flavorful', price: 180 },
+                { imgSrc: 'Assets/salad4.jpeg', name: 'Firewood pizza ', desc: 'Rich in taste', price: 220 }
+            ];
+            updateDishes(salad);
+        }
+
+        function updateSandwich() {
+            const Sandwich = [
+                { imgSrc: 'Assets/sand1.jpeg', name: 'Veg sandwich', desc: 'Spicy and cheesy', price: 150 },
+                { imgSrc: 'Assets/sand2.jpeg', name: 'Toated sandwich', desc: 'Crispy and fresh', price: 130 },
+                { imgSrc: 'Assets/sand3.jpeg', name: 'Bombay masala sandwich', desc: 'Juicy and flavorful', price: 180 },
+                { imgSrc: 'Assets/sand4.jpeg', name: 'Grilled cheese sandwich', desc: 'Rich in taste', price: 220 }
+            ];
+            updateDishes(Sandwich);
+        }
+
+        function updatepureveg() {
+            const pureveg = [
+                { imgSrc: 'Assets/veg1.jpeg', name: 'Samosa', desc: 'Spicy and cheesy', price: 150 },
+                { imgSrc: 'Assets/veg2.jpeg', name: 'Panipuri', desc: 'Crispy and fresh', price: 130 },
+                { imgSrc: 'Assets/veg3.jpeg', name: 'Cheese bread omlette', desc: 'Juicy and flavorful', price: 180 },
+                { imgSrc: 'Assets/veg4.jpeg', name: 'Masala puri', desc: 'Rich in taste', price: 220 }
+            ];
+            updateDishes(pureveg);
+        }
+
+        
+    
+        function updateDishes(dishArray) {
+            let dishesData = '';
+            for (let i = 0; i < dishArray.length; i++) {
+                dishesData += 
+                `<div class="dish">
+                    <img src="${dishArray[i].imgSrc}" class="dish-image" style="object-fit: cover; width: 100%; height: 60%; border-top-left-radius: 10px; border-top-right-radius: 10px;"/>
+                    <div class="dish-container">
+                        <div class="dish-info">
+                            <h4 class="dish-title">${dishArray[i].name} </h4>
+                            <p class="dish-desc">${dishArray[i].desc}</p>
+                            <p class="dish-price">₹${dishArray[i].price}</p>
+                        </div>
+                    </div>
+                </div>`;
+            }
+            document.getElementsByClassName('dishes')[0].innerHTML = dishesData;
+        }
+    
+        function update(obj) {
+            if (obj.id === 'food-item-0') {
+                updateRolls();
+            } else if (obj.id === 'food-item-1') {
+                updateDessert();
+            } 
+            else if (obj.id === 'food-item-2') {
+                updatecake();
+            } 
+            else if (obj.id === 'food-item-3') {
+                updatesalad();
+            } 
+            else if (obj.id === 'food-item-4') {
+                updateSandwich();
+            } 
+            else if (obj.id === 'food-item-5') {
+                updatepureveg();
+            } 
+            else if (obj.id === 'food-item-6') {
+                updatePasta();
+            } 
+            else if (obj.id === 'food-item-7') {
+                updateBurger();
+            } 
+        }
+    </script>
+</body>
+</html>
