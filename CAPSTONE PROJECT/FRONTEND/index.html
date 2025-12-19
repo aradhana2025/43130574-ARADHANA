@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chennai City Guide</title>
+    <style>
+        /* CSS THEME */
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #0b0f1a; color: #eee; }
+        header { padding: 25px; background: #0f1624; color: #4ef2c8; display: flex; justify-content: space-between; align-items: center; font-size: 28px; border-bottom: 1px solid #333; }
+        
+        .hero-section { display: flex; align-items: center; justify-content: center; gap: 50px; padding: 60px 10%; min-height: 400px; }
+        .hero-image img { width: 350px; border-radius: 20px; box-shadow: 0 0 30px rgba(78, 242, 200, 0.2); }
+        
+        /* Smooth Fade-In Animations */
+        .fade-line { font-size: 22px; margin: 12px 0; opacity: 0; transform: translateX(30px); animation: slideIn 0.8s forwards; }
+        .l1 { animation-delay: 0.2s; color: #4ef2c8; font-size: 32px; font-weight: bold; }
+        .l8 { animation-delay: 1.6s; color: #4ef2c8; font-weight: bold; }
+        @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+
+        /* Region Blocks */
+        #regList { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; padding: 40px; }
+        .region-card { aspect-ratio: 1/1; background: #121a2b; border: 2px solid #333; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; font-size: 22px; color: #4ef2c8; font-weight: bold; }
+        .region-card:hover { border-color: #4ef2c8; transform: translateY(-10px); }
+
+        /* Category Page */
+        .category-card { width: 300px; background: #121a2b; border-radius: 20px; cursor: pointer; transition: 0.3s; border: 1px solid #333; overflow: hidden; margin: 10px; }
+        .category-card img { width: 100%; height: 200px; object-fit: cover; }
+
+        /* Modals */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; }
+        .modal-content { background: #121a2b; padding: 35px; width: 350px; border-radius: 15px; border: 2px solid #4ef2c8; position: relative; text-align: center; }
+        .modal-content input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #333; background: #0b0f1a; color: white; }
+        
+        button { padding: 12px 24px; border: none; border-radius: 30px; background: linear-gradient(135deg,#4ef2c8,#2dd4bf); color: #000; cursor: pointer; font-weight: bold; margin: 5px; }
+
+        /* Admin Moderation Dashboard */
+        #admin-panel { display: none; margin: 80px auto; width: 90%; border-top: 2px solid #4ef2c8; padding-top: 40px; text-align: center; }
+        .pending-item { background: #1b2538; padding: 20px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; border-radius: 12px; border-left: 5px solid #4ef2c8; }
+        .rej-btn { background: #ff4444 !important; color: white !important; }
+
+        .welcome-text { font-size: 2.5rem; color: #4ef2c8; text-shadow: 0 0 15px rgba(78, 242, 200, 0.6); font-weight: bold; animation: fadeInDown 1.5s ease-out; text-align: center; margin-top: 20px;}
+        @keyframes fadeInDown { 0% { opacity: 0; transform: translateY(-30px); } 100% { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<header>
+    <div onclick="location.reload()" style="cursor:pointer">Chennai City Guide</div>
+    <div id="auth-section">
+        <button onclick="openModal('login')">Login</button>
+        <button onclick="openModal('register')">Register</button>
+    </div>
+</header>
+
+<div id="home-page">
+    <div id="welcome-msg"></div>
+    <div class="hero-section">
+        <div class="hero-image"><img src="WhatsApp Image 2025-12-13 at 1.10.02 PM.jpeg"></div>
+        <div class="hero-text">
+            <div class="fade-line l1">Vanakkam, Chennai! 👋</div>
+            <div class="fade-line l2">Experience the Gateway to South India.</div>
+            <div class="fade-line l3">Find the best shopping and party hubs.</div>
+            <div class="fade-line l8">Your Chennai journey starts now!</div>
+            <div style="margin-top: 30px;">
+                <button onclick="fetchRegions()">Explore Regions</button>
+                <button id="addRegBtn" style="display:none;" onclick="openModal('addRegion')">➕ Add Region</button>
+            </div>
+        </div>
+    </div>
+    <div id="regList"></div>
+</div>
+
+<div id="region-page" style="display:none; padding:40px; text-align: center;">
+    <button onclick="goBack()">← Back</button>
+    <h1 id="regTitle" style="color:#4ef2c8; font-size: 40px; text-transform: uppercase;"></h1>
+    <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+        <div class="category-card" onclick="openCat('FOOD')">
+            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400">
+            <div style="padding: 15px;"><h3>What you crave for?</h3></div>
+        </div>
+        <div class="category-card" onclick="openCat('SHOPPING')">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400">
+            <div style="padding: 15px;"><h3>Let's do some shopping</h3></div>
+        </div>
+        <div class="category-card" onclick="openCat('PARTY')">
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400">
+            <div style="padding: 15px;"><h3>Let's party!</h3></div>
+        </div>
+    </div>
+</div>
+
+<div id="spots-page" style="display:none; padding:40px;">
+    <button onclick="goBack()">← Back</button>
+    <h2 id="catTitle" style="color:#4ef2c8; text-transform: uppercase;"></h2>
+    <button id="addSpotBtn" style="display:none; margin-bottom: 20px;" onclick="prepSpotForm()">➕ Add New Spot</button>
+    <div id="spotList"></div>
+</div>
+
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <h3>Login</h3>
+        <input type="text" id="lU" placeholder="Username">
+        <input type="password" id="lP" placeholder="Password">
+        <button onclick="loginUser()">Sign In</button>
+    </div>
+</div>
+
+<div class="modal" id="registerModal">
+    <div class="modal-content" id="regContent">
+        <span onclick="closeModal()" style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:24px;">×</span>
+        <h3>Register</h3>
+        <input type="text" id="regFullName" placeholder="Full Name">
+        <input type="date" id="regDOB">
+        <input type="email" id="regMail" placeholder="Email Address">
+        <input type="text" id="regUser" placeholder="Username">
+        <input type="password" id="regPass" placeholder="Password">
+        <button onclick="register()">Create Account</button>
+    </div>
+</div>
+
+<div class="modal" id="addRegionModal">
+    <div class="modal-content">
+        <h3>Add New Region</h3>
+        <input type="text" id="newRegName" placeholder="Region Name (e.g. Marina)">
+        <button onclick="submitRegion()">Submit for Permission</button>
+        <button onclick="closeModal()" style="background: #333; color: #fff;">Cancel</button>
+    </div>
+</div>
+
+<div class="modal" id="addSpotModal">
+    <div class="modal-content">
+        <h3 id="modalHeading">Add New Spot</h3>
+        <input type="text" id="sN" placeholder="Name">
+        <input type="text" id="sL" placeholder="Location">
+        <input type="text" id="sDish" placeholder="Favorite Dish" style="display:none;">
+        <input type="date" id="sDate" style="display:none;">
+        <input type="number" id="sRate" placeholder="Rating (1-5)">
+        <button onclick="submitSpot()">Submit for Permission</button>
+    </div>
+</div>
+
+<div id="admin-panel">
+    <h2>Admin Moderation Dashboard</h2>
+    <button onclick="fetchPending()">🔄 Refresh Requests</button>
+    <div id="pList"></div>
+</div>
+
+
+
+<script>
+    const API = "http://localhost:8085/api";
+    let role = null, currRid = null, currCat = null, currentUser = "";
+
+    function openModal(id) { document.getElementById(id + 'Modal').style.display = 'flex'; }
+    function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
+
+    function goBack() {
+        document.getElementById('spots-page').style.display = 'none';
+        document.getElementById('region-page').style.display = 'none';
+        document.getElementById('home-page').style.display = 'block';
+        fetchRegions();
+    }
+
+    function loginUser() {
+        const u = document.getElementById('lU').value, p = document.getElementById('lP').value;
+        fetch(API + "/login", { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({username: u, passwordHash: p}) })
+        .then(res => res.text()).then(data => {
+            if(data.startsWith("SUCCESS")) {
+                role = data.split(":")[1]; currentUser = u; closeModal();
+                document.getElementById('welcome-msg').innerHTML = `<h1 class="welcome-text">Welcome, ${u}! ✨</h1>`;
+                document.getElementById('auth-section').innerHTML = `<span style="color:#4ef2c8;">${u} 👤</span> <button onclick="location.reload()">Logout</button>`;
+                document.getElementById('addRegBtn').style.display = 'inline-block';
+                if(role === 'ADMIN') { document.getElementById('admin-panel').style.display = 'block'; fetchPending(); }
+                fetchRegions();
+            } else { alert("Login failed."); }
+        });
+    }
+
+    function register() {
+        const user = { fullName: document.getElementById('regFullName').value, dob: document.getElementById('regDOB').value, email: document.getElementById('regMail').value, username: document.getElementById('regUser').value, password: document.getElementById('regPass').value, role: 'USER' };
+        fetch(API + "/register", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(user) })
+        .then(res => res.ok ? closeModal() : alert("Registration error. Check if username/email exists."));
+    }
+
+    function fetchRegions() {
+        fetch(API + "/regions").then(res => res.json()).then(data => {
+            const cont = document.getElementById('regList'); cont.innerHTML = '';
+            data.forEach(r => {
+                const card = document.createElement('div'); card.className = 'region-card';
+                card.innerHTML = `<div>📍</div><div>${r.regionName}</div>`;
+                card.onclick = () => { currRid = r.id; document.getElementById('home-page').style.display = 'none'; document.getElementById('region-page').style.display = 'block'; document.getElementById('regTitle').innerText = r.regionName; };
+                cont.appendChild(card);
+            });
+        });
+    }
+
+    function submitRegion() {
+        const name = document.getElementById('newRegName').value;
+        if(!name) return alert("Enter a name!");
+        fetch(API + "/regions/add", { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({regionName: name, status: 'PENDING', createdBy: currentUser}) })
+        .then(() => { alert("Sent to Admin!"); closeModal(); fetchPending(); });
+    }
+
+    function openCat(type) {
+        currCat = type; document.getElementById('region-page').style.display = 'none'; document.getElementById('spots-page').style.display = 'block';
+        if(role) document.getElementById('addSpotBtn').style.display = 'inline-block';
+        fetchApprovedSpots();
+    }
+
+    function prepSpotForm() {
+        document.getElementById('sDish').style.display = (currCat === 'FOOD') ? 'block' : 'none';
+        document.getElementById('sDate').style.display = (currCat === 'PARTY') ? 'block' : 'none';
+        openModal('addSpot');
+    }
+
+    function submitSpot() {
+        const d = { name: document.getElementById('sN').value, location: document.getElementById('sL').value, type: currCat, regionId: currRid, favoriteDish: document.getElementById('sDish').value, eventDate: document.getElementById('sDate').value, rating: document.getElementById('sRate').value, status: 'PENDING', createdBy: currentUser };
+        fetch(API + "/spots/add", { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(d) }).then(() => { alert("Sent for Approval!"); closeModal(); fetchPending(); });
+    }
+
+    function fetchApprovedSpots() {
+        fetch(`${API}/spots/region/${currRid}/type/${currCat}`).then(res => res.json()).then(data => {
+            const list = document.getElementById('spotList'); list.innerHTML = data.length === 0 ? "<p>No approved spots here yet.</p>" : "";
+            data.forEach(s => { list.innerHTML += `<div style="background:#1b2538; padding:20px; margin:10px 0; border-radius:15px; border-left:5px solid #4ef2c8; text-align:left;"><h3>${s.name} ${"⭐".repeat(s.rating)}</h3><p>📍 ${s.location}</p></div>`; });
+        });
+    }
+
+    function fetchPending() {
+        if(role !== 'ADMIN') return;
+        const list = document.getElementById('pList'); list.innerHTML = "<h4>Refreshing...</h4>";
+        fetch(API + "/admin/regions/pending").then(res => res.json()).then(regions => {
+            list.innerHTML = regions.length === 0 ? "<p>No pending regions.</p>" : "";
+            regions.forEach(r => { list.innerHTML += `<div class="pending-item"><span>REGION: ${r.regionName}</span><div><button onclick="apprReg(${r.id})">Approve ✅</button><button class="rej-btn" onclick="rejReg(${r.id})">Reject ❌</button></div></div>`; });
+            return fetch(API + "/spots/admin/pending");
+        }).then(res => res.json()).then(spots => {
+            if(spots.length > 0) list.innerHTML += "<h4>Pending Spots</h4>";
+            spots.forEach(s => { list.innerHTML += `<div class="pending-item"><span>${s.type}: ${s.name}</span><div><button onclick="apprSpot(${s.id})">Approve ✅</button><button class="rej-btn" onclick="rejSpot(${s.id})">Reject ❌</button></div></div>`; });
+        });
+    }
+
+    function apprReg(id) { fetch(`${API}/admin/regions/${id}/approve`, {method:'PUT'}).then(() => { fetchPending(); fetchRegions(); }); }
+    function rejReg(id) { if(confirm("Reject?")) fetch(`${API}/admin/regions/${id}/reject`, {method:'DELETE'}).then(() => fetchPending()); }
+    function apprSpot(id) { fetch(`${API}/spots/admin/${id}/approve`, {method:'PUT'}).then(() => fetchPending()); }
+    function rejSpot(id) { if(confirm("Reject Spot?")) fetch(`${API}/spots/admin/${id}/reject`, {method:'DELETE'}).then(() => fetchPending()); }
+
+    fetchRegions();
+</script>
+</body>
+</html>
